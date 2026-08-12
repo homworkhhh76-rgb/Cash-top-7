@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="نظام مبيعات وحسابات متعدد الشركات يعمل أونلاين وأوفلاين" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>نظام المبيعات والحسابات</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <section class="auth-screen" id="authScreen">
+    <div class="auth-glow auth-glow-one"></div>
+    <div class="auth-glow auth-glow-two"></div>
+    <div class="login-card">
+      <div class="login-brand">
+        <img src="logo.png" alt="الشعار" id="loginLogo" />
+        <div>
+          <span class="eyebrow">نظام الشركات</span>
+          <h1>تسجيل الدخول</h1>
+          <p>مفتاح الشركة + اسم المستخدم + كلمة المرور</p>
+        </div>
+      </div>
+      <form id="loginForm" class="login-form">
+        <label><span>مفتاح الشركة</span><input id="companyKeyInput" autocomplete="organization" required placeholder="GHZ-XXXX-XXXX-XXXX-XXXX" /></label>
+        <label><span>اسم المستخدم</span><input id="usernameInput" autocomplete="username" required placeholder="اسم المستخدم" /></label>
+        <label><span>كلمة المرور</span><input id="passwordInput" type="password" autocomplete="current-password" required placeholder="••••••••" /></label>
+        <button type="submit" class="login-submit" id="loginBtn">دخول سريع</button>
+        <div class="login-message" id="loginMessage" hidden></div>
+      </form>
+      <div class="login-foot"><span class="status-dot" id="loginStatusDot"></span><span id="loginStatusText">جاهز للدخول</span></div>
+    </div>
+  </section>
+
+  <div class="app-shell" id="appShell" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="logo.png" alt="شعار الشركة" class="brand-logo" id="companyLogo" />
+        <div class="brand-text">
+          <strong id="companyName">نظام المبيعات</strong>
+          <span id="companySubline">المبيعات والحسابات والمخزون</span>
+        </div>
+      </div>
+      <div class="user-chip">
+        <div class="user-avatar" id="userAvatar">م</div>
+        <div><strong id="userDisplayName">المستخدم</strong><span id="userRoleLabel">موظف</span></div>
+      </div>
+      <nav id="nav" class="nav"></nav>
+      <div class="sidebar-tools">
+        <button class="tool-btn" id="installBtn" hidden><span data-icon="download"></span><span>تثبيت التطبيق</span></button>
+        <button class="tool-btn" id="exportBtn"><span data-icon="database"></span><span>نسخة احتياطية</span></button>
+        <label class="tool-btn file-label" id="importLabel"><span data-icon="upload"></span><span>استيراد نسخة</span><input id="importInput" type="file" accept="application/json" /></label>
+        <button class="tool-btn" id="printBtn"><span data-icon="printer"></span><span>طباعة الصفحة</span></button>
+        <button class="tool-btn" id="logoutBtn"><span data-icon="logout"></span><span>تسجيل الخروج</span></button>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div class="topbar-main">
+          <button class="icon-only menu-btn" id="menuBtn" aria-label="فتح القائمة"><span data-icon="menu"></span></button>
+          <div class="page-heading">
+            <strong id="currentPageLabel">لوحة التحكم</strong>
+            <small id="connectionText">البيانات محفوظة محليًا</small>
+          </div>
+        </div>
+        <div class="header-company">
+          <img src="logo.png" id="headerLogo" alt="شعار الشركة" />
+          <div><strong id="headerCompanyName">الشركة</strong><span id="licenseRemaining">—</span></div>
+        </div>
+      </header>
+      <main id="app" class="content" aria-live="polite"></main>
+    </section>
+
+    <nav class="bottom-nav" id="bottomNav" aria-label="اختصارات سريعة">
+      <button class="bottom-btn" data-quick="dashboard"><span data-icon="home"></span><small>الرئيسية</small></button>
+      <button class="bottom-btn" data-quick="sales"><span data-icon="receipt"></span><small>مبيعات</small></button>
+      <button class="bottom-btn" data-quick="purchases"><span data-icon="cart"></span><small>مشتريات</small></button>
+      <button class="bottom-btn" data-quick="inventory"><span data-icon="package"></span><small>مخزن</small></button>
+      <button class="bottom-btn sync-cloud-btn" id="syncBtn" title="مزامنة الآن" aria-label="مزامنة الآن">
+        <span class="sync-icon" data-icon="cloudSync"></span><small>مزامنة</small><span class="pending-badge" id="pendingBadge" hidden>0</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h3 id="modalTitle">إضافة سجل</h3>
+        <button class="icon-only" id="modalClose" aria-label="إغلاق"><span data-icon="close"></span></button>
+      </div>
+      <form id="modalForm" class="modal-form"></form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="cash-top-cloud.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
