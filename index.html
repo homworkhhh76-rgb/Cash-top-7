@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="app.css" />
 </head>
 <body>
-  <section class="auth-screen" id="authScreen">
+  <section class="auth-screen" id="authScreen" hidden>
     <div class="auth-glow auth-glow-one"></div>
     <div class="auth-glow auth-glow-two"></div>
     <div class="login-card">
@@ -41,7 +41,8 @@
   </section>
 
   <div class="app-shell" id="appShell" hidden>
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" aria-hidden="true">
+      <button class="sidebar-close" id="sidebarCloseBtn" type="button" aria-label="إغلاق القائمة"><span data-icon="close"></span></button>
       <div class="brand">
         <img src="logo.png" alt="شعار الشركة" class="brand-logo" id="companyLogo" />
         <div class="brand-text">
@@ -62,6 +63,7 @@
         <button class="tool-btn" id="logoutBtn"><span data-icon="logout"></span><span>تسجيل الخروج</span></button>
       </div>
     </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
 
     <section class="workspace">
       <header class="topbar">
@@ -72,10 +74,15 @@
             <small id="connectionText">البيانات محفوظة محليًا</small>
           </div>
         </div>
-        <div class="header-company">
-          <img src="logo.png" id="headerLogo" alt="شعار الشركة" />
-          <div><strong id="headerCompanyName">الشركة</strong><span id="licenseRemaining">—</span></div>
+        <div class="quick-links" id="headerQuickLinks" aria-label="روابط سريعة">
+          <button class="quick-btn" data-quick="dashboard" title="الرئيسية"><span data-icon="home"></span><span>الرئيسية</span></button>
+          <button class="quick-btn" data-quick="sales" title="المبيعات"><span data-icon="receipt"></span><span>المبيعات</span></button>
+          <button class="quick-btn" data-quick="purchases" title="المشتريات"><span data-icon="cart"></span><span>المشتريات</span></button>
+          <button class="quick-btn" data-quick="inventory" title="المخزن"><span data-icon="package"></span><span>المخزن</span></button>
         </div>
+        <button class="sync-btn" id="syncBtn" title="مزامنة الآن" aria-label="مزامنة الآن">
+          <span class="sync-icon" data-icon="cloudSync"></span><span class="pending-badge" id="pendingBadge" hidden>0</span>
+        </button>
       </header>
       <main id="app" class="content" aria-live="polite"></main>
     </section>
@@ -85,9 +92,7 @@
       <button class="bottom-btn" data-quick="sales"><span data-icon="receipt"></span><small>مبيعات</small></button>
       <button class="bottom-btn" data-quick="purchases"><span data-icon="cart"></span><small>مشتريات</small></button>
       <button class="bottom-btn" data-quick="inventory"><span data-icon="package"></span><small>مخزن</small></button>
-      <button class="bottom-btn sync-cloud-btn" id="syncBtn" title="مزامنة الآن" aria-label="مزامنة الآن">
-        <span class="sync-icon" data-icon="cloudSync"></span><small>مزامنة</small><span class="pending-badge" id="pendingBadge" hidden>0</span>
-      </button>
+      <button class="bottom-btn" data-quick="settings"><span data-icon="settings"></span><small>إعدادات</small></button>
     </nav>
   </div>
 

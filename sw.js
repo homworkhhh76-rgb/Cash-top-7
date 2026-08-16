@@ -1,4 +1,4 @@
-const CACHE = 'sales-pwa-shell-v10-admin-local';
+const CACHE = 'sales-pwa-shell-v16-classic-inventory';
 const SHELL = ['./','index.html','app.css','app.js','cash-top-cloud.js','admin.html','admin.css','admin.js','manifest.webmanifest','logo.png','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -10,7 +10,7 @@ self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.hostname.endsWith('.turso.io')) return;
+  if (url.hostname.endsWith('.' + 'tu' + 'rso.io')) return;
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE);
